@@ -1,5 +1,3 @@
-using System;
-
 namespace GeometryLibraryTests
 {
     [TestFixture]
@@ -36,6 +34,19 @@ namespace GeometryLibraryTests
         {
             Vector3 vector = new Vector3(2f, 2f, 2f);
             Assert.That(vector/2, Is.EqualTo(new Vector3(1f, 1f, 1f)));
+        }
+
+        [Test]
+        public void Test_Vector_Cross_Product()
+        {
+            Vector3 vector1 = new Vector3(0f,3f,0f);
+            Vector3 vector2 = new Vector3(3f, 0f, 0f);
+
+            Vector3 vector3 = new Vector3(1f, 1f, 0f);
+            Vector3 vector4 = new Vector3(2f, 4f, 3f);
+ 
+            Assert.That(Vector3.Cross(vector1, vector2), Is.EqualTo(new Vector3(0f, 0f, -9f)));
+            Assert.That(Vector3.Cross(vector3, vector4), Is.EqualTo(new Vector3(3f, -3f, 2f)));
         }
     }
 }
