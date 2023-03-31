@@ -1,0 +1,12 @@
+G:\git\CD-assignment3\GeometryLibrary\bin\Debug\net6.0\GeometryLibrary.deps.json
+G:\git\CD-assignment3\GeometryLibrary\bin\Debug\net6.0\GeometryLibrary.dll
+G:\git\CD-assignment3\GeometryLibrary\bin\Debug\net6.0\GeometryLibrary.pdb
+G:\git\CD-assignment3\GeometryLibrary\obj\Debug\net6.0\GeometryLibrary.csproj.AssemblyReference.cache
+G:\git\CD-assignment3\GeometryLibrary\obj\Debug\net6.0\GeometryLibrary.GeneratedMSBuildEditorConfig.editorconfig
+G:\git\CD-assignment3\GeometryLibrary\obj\Debug\net6.0\GeometryLibrary.AssemblyInfoInputs.cache
+G:\git\CD-assignment3\GeometryLibrary\obj\Debug\net6.0\GeometryLibrary.AssemblyInfo.cs
+G:\git\CD-assignment3\GeometryLibrary\obj\Debug\net6.0\GeometryLibrary.csproj.CoreCompileInputs.cache
+G:\git\CD-assignment3\GeometryLibrary\obj\Debug\net6.0\GeometryLibrary.dll
+G:\git\CD-assignment3\GeometryLibrary\obj\Debug\net6.0\refint\GeometryLibrary.dll
+G:\git\CD-assignment3\GeometryLibrary\obj\Debug\net6.0\GeometryLibrary.pdb
+G:\git\CD-assignment3\GeometryLibrary\obj\Debug\net6.0\ref\GeometryLibrary.dll
