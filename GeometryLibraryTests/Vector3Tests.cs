@@ -48,5 +48,14 @@ namespace GeometryLibraryTests
             Assert.That(Vector3.Cross(vector1, vector2), Is.EqualTo(new Vector3(0f, 0f, -9f)));
             Assert.That(Vector3.Cross(vector3, vector4), Is.EqualTo(new Vector3(3f, -3f, 2f)));
         }
+
+        [Test]
+        public void Test_Vector_Dot_Product()
+        {
+            Vector3 vector1 = new Vector3(1f, 3f, -5f);
+            Vector3 vector2 = new Vector3(4f, -2f, -1f);
+
+            Assert.That(Vector3.Dot(vector1, vector2), Is.EqualTo(3f));
+        }
     }
 }
