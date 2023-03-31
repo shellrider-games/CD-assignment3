@@ -29,4 +29,13 @@ public struct Vector3
             addend1.Z + addend2.Z
         );
     }
+
+    public static Vector3 operator/(Vector3 vector, float scalar)
+    {
+        return new Vector3(
+            vector.X/scalar,
+            vector.Y/scalar,
+            vector.Z/scalar
+        );
+    }
 }

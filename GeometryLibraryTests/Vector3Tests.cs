@@ -30,5 +30,12 @@ namespace GeometryLibraryTests
             Vector3 vector2 = new Vector3(4f, 5f, 6f);
             Assert.That(vector1+vector2, Is.EqualTo(new Vector3(5f,7f,9f)));
         }
+
+        [Test]
+        public void Can_Divide_Vector_By_Scalar()
+        {
+            Vector3 vector = new Vector3(2f, 2f, 2f);
+            Assert.That(vector/2, Is.EqualTo(new Vector3(1f, 1f, 1f)));
+        }
     }
 }
