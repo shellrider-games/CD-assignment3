@@ -57,5 +57,17 @@ namespace GeometryLibraryTests
 
             Assert.That(Vector3.Dot(vector1, vector2), Is.EqualTo(3f));
         }
+
+        [Test]
+        public void Test_Vector_Magnitude()
+        {
+            Vector3 vector1 = new Vector3(1f, 0f, 0f);
+            Vector3 vector2 = new Vector3(2f, 0f, 0f);
+            Vector3 vector3 = new Vector3(8f, -5f, -19f);
+
+            Assert.That(vector1.Magnitude, Is.EqualTo(1f));
+            Assert.That(vector2.Magnitude, Is.EqualTo(2f));
+            Assert.That(MathF.Round(vector3.Magnitude,3), Is.EqualTo(21.213f));
+        }
     }
 }

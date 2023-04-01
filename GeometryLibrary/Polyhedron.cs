@@ -1,7 +1,7 @@
 namespace GeometryLibrary;
 public abstract class Polyhedron : ISurface
 {
-    private Vector3[] _points;
+    protected Vector3[] _points;
 
     public Polyhedron(Vector3[] points)
     {
