@@ -19,7 +19,6 @@ public class Tetrahedron : Polyhedron
         result += Vector3.Cross(triangle3.Item1, triangle3.Item2).Magnitude/2f;
         result += Vector3.Cross(triangle4.Item1, triangle4.Item2).Magnitude/2f;
 
-
         return result;
     }
 }
