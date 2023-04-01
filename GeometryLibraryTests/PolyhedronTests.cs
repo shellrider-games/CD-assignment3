@@ -30,8 +30,8 @@ namespace GeometryLibraryTests
             });
 
             Assert.That(test.Centroid(), Is.EqualTo(new Vector3(0f, 0f, 0f)));
-        
         }
+
         [Test]
         public void TestEqualsOperator()
         {
@@ -48,9 +48,17 @@ namespace GeometryLibraryTests
                 new Vector3(0.7f,0f,0f),
                 new Vector3(0f,1f,0f)
             });
-            
+
+            BasePolyhedron test3 = new BasePolyhedron(new Vector3[]{
+                new Vector3(0f,2f,1f),
+                new Vector3(-0.7f,0f,0f),
+                new Vector3(0.7f,0f,0f),
+                new Vector3(0f,1f,0f)
+            });
+
             Assert.That(test1, Is.EqualTo(test2));
             Assert.IsTrue(test1 == test2);
+            Assert.IsFalse(test1 == test3);
         }
     }
 }
