@@ -16,7 +16,12 @@ public abstract class Polyhedron : ISurface
 
     public override int GetHashCode()
     {
-        return base.GetHashCode();
+        int hash = 7;
+        foreach(Vector3 point in _points)
+        {
+            hash += point.GetHashCode();
+        }
+        return hash;
     }
 
     public static bool operator ==(Polyhedron polyhedron1, Polyhedron polyhedron2)
