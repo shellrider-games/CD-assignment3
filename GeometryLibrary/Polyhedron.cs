@@ -10,14 +10,14 @@ public abstract class Polyhedron : ISurface
 
     public override bool Equals(object? obj)
     {
-        if(obj is Polyhedron) return this == (Polyhedron)obj;
+        if (obj is Polyhedron) return this == (Polyhedron)obj;
         return base.Equals(obj);
     }
 
     public override int GetHashCode()
     {
         int hash = 7;
-        foreach(Vector3 point in _points)
+        foreach (Vector3 point in _points)
         {
             hash += point.GetHashCode();
         }
@@ -27,13 +27,16 @@ public abstract class Polyhedron : ISurface
     public static bool operator ==(Polyhedron polyhedron1, Polyhedron polyhedron2)
     {
         if (polyhedron1._points.Length != polyhedron2._points.Length) return false;
+
         List<Vector3> comparePoints = polyhedron2._points.ToList();
-        foreach(Vector3 point in polyhedron1._points)
+
+        foreach (Vector3 point in polyhedron1._points)
         {
             int indexInCompare = comparePoints.FindIndex(vec => point.Equals(vec));
-            if(indexInCompare < 0) return false;
+            if (indexInCompare < 0) return false;
             comparePoints.RemoveAt(indexInCompare);
         }
+
         return true;
     }
 
