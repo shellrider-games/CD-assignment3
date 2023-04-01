@@ -38,7 +38,7 @@ namespace GeometryLibraryTests
 
         [Test]
         public void Test_Vector_Cross_Product()
-        {
+        { 
             Vector3 vector1 = new Vector3(0f,3f,0f);
             Vector3 vector2 = new Vector3(3f, 0f, 0f);
 
