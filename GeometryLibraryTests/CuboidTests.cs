@@ -44,8 +44,23 @@ namespace GeometryLibraryTests
                 new Vector3(0.5f,-0.5f,-0.5f),
                 new Vector3(-0.5f,-0.5f,-0.5f),
             });
-
             Assert.That(cube.Centroid, Is.EqualTo(new Vector3(0,0,0)));
+        }
+
+        [Test]
+        public void Test_Surface_Cube()
+        {
+            Cuboid cube = new Cuboid(new Vector3[]{
+                new Vector3(-0.5f,0.5f,0.5f),
+                new Vector3(0.5f,0.5f,0.5f),
+                new Vector3(0.5f,-0.5f,0.5f),
+                new Vector3(-0.5f,-0.5f,0.5f),
+                new Vector3(-0.5f,0.5f,-0.5f),
+                new Vector3(0.5f,0.5f,-0.5f),
+                new Vector3(0.5f,-0.5f,-0.5f),
+                new Vector3(-0.5f,-0.5f,-0.5f),
+            });
+            Assert.That(cube.SurfaceArea(), Is.EqualTo(6f));
         }
     }
 }

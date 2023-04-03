@@ -1,6 +1,6 @@
 namespace GeometryLibrary;
 
-public class Cuboid : Polyhedron
+public class Cuboid : Polyhedron, IVolume
 {
     ///<summary>
     ///Cuboid constructor. This class extends the <c>Polyhedron</c> class.
@@ -14,6 +14,42 @@ public class Cuboid : Polyhedron
 
     public override float SurfaceArea()
     {
+        float result = 0;
+        (Vector3, Vector3)[] triangles = Triangles();
+        foreach((Vector3, Vector3) triangle in triangles)
+        {
+            result += Vector3.Cross(triangle.Item1, triangle.Item2).Magnitude/2f;
+        }
+        return result;
+    }
+
+    public float Volume()
+    {
         throw new NotImplementedException();
+    }
+
+    private (Vector3, Vector3)[] Triangles()
+    {
+        //A cuboid's surface consists of 12 triangles
+        (Vector3, Vector3)[] triangles = new (Vector3, Vector3)[6*2];
+        triangles[0] = (_points[0]-_points[1],_points[2]-_points[1]);
+        triangles[1] = (_points[2]-_points[3],_points[0]-_points[3]);
+
+        triangles[2] = (_points[0]-_points[1],_points[5]-_points[1]);
+        triangles[3] = (_points[0]-_points[4],_points[5]-_points[4]);
+
+        triangles[4] = (_points[6]-_points[5],_points[1]-_points[5]);
+        triangles[5] = (_points[1]-_points[2],_points[6]-_points[2]);
+
+        triangles[6] = (_points[2]-_points[6],_points[7]-_points[6]);
+        triangles[7] = (_points[2]-_points[3],_points[7]-_points[3]);
+
+        triangles[8] = (_points[7]-_points[3],_points[0]-_points[3]);
+        triangles[9] = (_points[7]-_points[4],_points[0]-_points[4]);
+
+        triangles[10] = (_points[5]-_points[4],_points[7]-_points[4]);
+        triangles[11] = (_points[5]-_points[6],_points[7]-_points[6]);
+
+        return triangles;
     }
 }
