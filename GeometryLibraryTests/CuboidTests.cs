@@ -76,7 +76,20 @@ namespace GeometryLibraryTests
                 new Vector3(1.30668f,1.09312f,-1.68679f),
                 new Vector3(-1.13085f,1.09312f,-1.68679f),
             });
+
+            Cuboid cuboid2 = new Cuboid(new Vector3[]{
+                new Vector3(-0.34329f,-0.870595f,0.866248f),
+                new Vector3(1.46298f,-0.870595f,0.866248f),
+                new Vector3(1.01123f,0.858149f,-0.030544f),
+                new Vector3(-0.795039f,0.858149f,-0.030544f),
+                new Vector3(-1.24306f,-0.870595f,-0.919927f),
+                new Vector3(0.563215f,-0.870595f,-0.919927f),
+                new Vector3(0.563215f,0.858149f,-0.919927f),
+                new Vector3(-1.24306f,0.858149f,-0.919927f),
+            });
+
             Assert.That(MathF.Round(cuboid.SurfaceArea(),2), Is.EqualTo(35.29f));
+            Assert.That(MathF.Round(cuboid2.SurfaceArea(),2), Is.EqualTo(16.65f));
         }
         
     }
