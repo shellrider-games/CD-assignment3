@@ -92,24 +92,8 @@ namespace GeometryLibraryTests
             Assert.That(MathF.Round(cuboid2.SurfaceArea(),2), Is.EqualTo(16.65f));
         }
 
-        // [Test]
-        // public void Test_Volume_Cube()
-        // {
-        //     Cuboid cube = new Cuboid(new Vector3[]{
-        //         new Vector3(-0.5f,0.5f,0.5f),
-        //         new Vector3(0.5f,0.5f,0.5f),
-        //         new Vector3(0.5f,-0.5f,0.5f),
-        //         new Vector3(-0.5f,-0.5f,0.5f),
-        //         new Vector3(-0.5f,0.5f,-0.5f),
-        //         new Vector3(0.5f,0.5f,-0.5f),
-        //         new Vector3(0.5f,-0.5f,-0.5f),
-        //         new Vector3(-0.5f,-0.5f,-0.5f),
-        //     });
-        //     Assert.That(cube.Volume(), Is.EqualTo(1f));
-        // }
-
         [Test]
-        public void Test_Bottom_Surface_Cube()
+        public void Test_Volume_Cube()
         {
             Cuboid cube = new Cuboid(new Vector3[]{
                 new Vector3(-0.5f,0.5f,0.5f),
@@ -121,10 +105,24 @@ namespace GeometryLibraryTests
                 new Vector3(0.5f,-0.5f,-0.5f),
                 new Vector3(-0.5f,-0.5f,-0.5f),
             });
-
-            Assert.That(cube.BottomSurfaceArea(), Is.EqualTo(1f));
+            Assert.That(cube.Volume(), Is.EqualTo(1f));
         }
-        
+
+        [Test]
+        public void Test_Volume_Cuboid()
+        {
+            Cuboid cuboid1 = new Cuboid(new Vector3[]{
+                new Vector3(-0.34329f,-0.870595f,0.866248f),
+                new Vector3(1.46298f,-0.870595f,0.866248f),
+                new Vector3(1.01123f,0.858149f,-0.030544f),
+                new Vector3(-0.795039f,0.858149f,-0.030544f),
+                new Vector3(-1.24306f,-0.870595f,-0.919927f),
+                new Vector3(0.563215f,-0.870595f,-0.919927f),
+                new Vector3(0.563215f,0.858149f,-0.919927f),
+                new Vector3(-1.24306f,0.858149f,-0.919927f),
+            });
+            Assert.That(MathF.Round(cuboid1.Volume(),4), Is.EqualTo(4.1773f));
+        }
     }
    
 }

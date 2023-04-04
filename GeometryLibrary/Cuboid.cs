@@ -27,30 +27,20 @@ public class Cuboid : Polyhedron, IVolume
     {
         float result = 0;
 
-        //bottom face
-        float bottomSurfaceArea = BottomSurfaceArea();
+        //The Volume of a Cuboid can be split into 5 Tetrahedrons
+        Tetrahedron[] subTetrahedrons = new Tetrahedron[5];
 
-        Vector3 edgeEA = _points[0]-_points[4];
-        float heightBottom = Vector3.Dot(Vector3.Cross(_points[7]-_points[4] ,_points[5]-_points[4]),edgeEA);
+        subTetrahedrons[0] = new Tetrahedron(_points[0], _points[1], _points[2], _points[5]);
+        subTetrahedrons[1] = new Tetrahedron(_points[1], _points[2], _points[3], _points[7]);
+        subTetrahedrons[2] = new Tetrahedron(_points[5], _points[6], _points[7], _points[2]);
+        subTetrahedrons[3] = new Tetrahedron(_points[4], _points[5], _points[7], _points[0]);
+        subTetrahedrons[4] = new Tetrahedron(_points[0], _points[2], _points[5], _points[7]);
 
-        Console.WriteLine(heightBottom);
-        result += (1f/3f) * bottomSurfaceArea * heightBottom;
-
-        return result;
-    }
-
-    public float BottomSurfaceArea()
-    {
-        float result = 0;
-        (Vector3, Vector3)[] bottomSurface = new (Vector3, Vector3)[2];
-
-        bottomSurface[0] = (_points[5]-_points[4],_points[7]-_points[4]);
-        bottomSurface[1] = (_points[5]-_points[6],_points[7]-_points[6]);
-
-        result += Vector3.Cross(bottomSurface[0].Item1, bottomSurface[0].Item2).Magnitude/2f;
-        result += Vector3.Cross(bottomSurface[1].Item1, bottomSurface[1].Item2).Magnitude/2f;
-
-
+        foreach(Tetrahedron tetrahedron in subTetrahedrons)
+        {
+            result += tetrahedron.Volume();
+        }
+        
         return result;
     }
 
