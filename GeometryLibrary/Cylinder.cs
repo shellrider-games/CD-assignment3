@@ -47,6 +47,11 @@ public class Cylinder : ISurface, IVolume
         return (_base2-_base1).Magnitude;
     }
 
+    public float BottomArea()
+    {
+        return _radius * _radius * MathF.PI;
+    }
+
     public float SurfaceArea()
     {
         return 2 * MathF.PI * _radius * (_radius + Height());
@@ -54,6 +59,8 @@ public class Cylinder : ISurface, IVolume
 
     public float Volume()
     {
-        throw new NotImplementedException();
+        float h = MathF.Abs(Vector3.Dot(new Vector3(0,0,1), _base2-_base1));
+        return BottomArea()*h;
     }
+
 }
