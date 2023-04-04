@@ -53,7 +53,17 @@ namespace GeometryLibraryTests
                 new Vector3(6, -4, 2)
             });
 
+            Tetrahedron test2 = new Tetrahedron(
+                new Vector3(0, 0, 0),
+                new Vector3(4, 0, 0),
+                new Vector3(2, 3, 2),
+                new Vector3(2, 0, 4)
+            );
+
             Assert.That(test.Centroid(), Is.EqualTo(new Vector3(4, -3, 2)));
+            Assert.That(test2.Centroid(), Is.EqualTo(new Vector3(2, 0.75f, 1.5f)));
+
+            
         }
 
         [Test]
@@ -73,8 +83,24 @@ namespace GeometryLibraryTests
                 new Vector3(2,-3,0)
             );
 
+            Tetrahedron test3 = new Tetrahedron(
+                new Vector3(0, 0, 0),
+                new Vector3(4, 0, 0),
+                new Vector3(2, 3, 2),
+                new Vector3(2, 0, 4)
+            );
+
+            Tetrahedron test4 = new Tetrahedron(new Vector3[] {
+                new Vector3(5,-7, 0),
+                new Vector3(1, 5, 3),
+                new Vector3(4, -6, 3),
+                new Vector3(6, -4, 2)
+            });
+
             Assert.That(MathF.Round(test.SurfaceArea(),3), Is.EqualTo(2.828f));
             Assert.That(test2.SurfaceArea(), Is.EqualTo(55.59344147f));
+            Assert.That(MathF.Round(test3.SurfaceArea(),3), Is.EqualTo(29.211f));
+            Assert.That(MathF.Round(test4.SurfaceArea(),3), Is.EqualTo(52.606f));
         }
 
         [Test]
