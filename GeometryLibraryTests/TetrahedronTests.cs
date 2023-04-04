@@ -76,5 +76,26 @@ namespace GeometryLibraryTests
             Assert.That(MathF.Round(test.SurfaceArea(),3), Is.EqualTo(2.828f));
             Assert.That(test2.SurfaceArea(), Is.EqualTo(55.59344147f));
         }
+
+        [Test]
+        public void Test_TetrahedronVolume()
+        {
+            Tetrahedron test = new Tetrahedron(
+                new Vector3(0,1,0),
+                new Vector3(0.707f,0,0),
+                new Vector3(-0.707f,0, 0),
+                new Vector3(0, 0, 1)
+            );
+
+            Tetrahedron test2 = new Tetrahedron(
+                new Vector3(4,2,-1),
+                new Vector3(-4,2,0),
+                new Vector3(5,3,0),
+                new Vector3(2,-3,0)
+            );
+
+            Assert.That(MathF.Round(test.Volume(),3), Is.EqualTo(0.236f));
+            Assert.That(MathF.Round(test2.Volume(),3), Is.EqualTo(8.500f));
+        }
     }
 }

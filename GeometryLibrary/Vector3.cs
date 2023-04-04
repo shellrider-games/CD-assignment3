@@ -56,6 +56,15 @@ public struct Vector3
         );
     }
 
+    public static Vector3 Normalize(Vector3 vector)
+    {
+        return new Vector3(
+            vector.X / vector.Magnitude,
+            vector.Y / vector.Magnitude,
+            vector.Z / vector.Magnitude
+        );
+    }
+
     public static float Dot(Vector3 vector1, Vector3 vector2) => vector1.X * vector2.X + vector1.Y * vector2.Y + vector1.Z * vector2.Z;
 
 }

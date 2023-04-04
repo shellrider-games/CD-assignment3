@@ -25,7 +25,33 @@ public class Cuboid : Polyhedron, IVolume
 
     public float Volume()
     {
-        throw new NotImplementedException();
+        float result = 0;
+
+        //bottom face
+        float bottomSurfaceArea = BottomSurfaceArea();
+
+        Vector3 edgeEA = _points[0]-_points[4];
+        float heightBottom = Vector3.Dot(Vector3.Cross(_points[7]-_points[4] ,_points[5]-_points[4]),edgeEA);
+
+        Console.WriteLine(heightBottom);
+        result += (1f/3f) * bottomSurfaceArea * heightBottom;
+
+        return result;
+    }
+
+    public float BottomSurfaceArea()
+    {
+        float result = 0;
+        (Vector3, Vector3)[] bottomSurface = new (Vector3, Vector3)[2];
+
+        bottomSurface[0] = (_points[5]-_points[4],_points[7]-_points[4]);
+        bottomSurface[1] = (_points[5]-_points[6],_points[7]-_points[6]);
+
+        result += Vector3.Cross(bottomSurface[0].Item1, bottomSurface[0].Item2).Magnitude/2f;
+        result += Vector3.Cross(bottomSurface[1].Item1, bottomSurface[1].Item2).Magnitude/2f;
+
+
+        return result;
     }
 
     private (Vector3, Vector3)[] Triangles()

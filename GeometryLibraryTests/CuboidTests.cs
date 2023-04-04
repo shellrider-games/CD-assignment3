@@ -91,6 +91,39 @@ namespace GeometryLibraryTests
             Assert.That(MathF.Round(cuboid.SurfaceArea(),2), Is.EqualTo(35.29f));
             Assert.That(MathF.Round(cuboid2.SurfaceArea(),2), Is.EqualTo(16.65f));
         }
+
+        // [Test]
+        // public void Test_Volume_Cube()
+        // {
+        //     Cuboid cube = new Cuboid(new Vector3[]{
+        //         new Vector3(-0.5f,0.5f,0.5f),
+        //         new Vector3(0.5f,0.5f,0.5f),
+        //         new Vector3(0.5f,-0.5f,0.5f),
+        //         new Vector3(-0.5f,-0.5f,0.5f),
+        //         new Vector3(-0.5f,0.5f,-0.5f),
+        //         new Vector3(0.5f,0.5f,-0.5f),
+        //         new Vector3(0.5f,-0.5f,-0.5f),
+        //         new Vector3(-0.5f,-0.5f,-0.5f),
+        //     });
+        //     Assert.That(cube.Volume(), Is.EqualTo(1f));
+        // }
+
+        [Test]
+        public void Test_Bottom_Surface_Cube()
+        {
+            Cuboid cube = new Cuboid(new Vector3[]{
+                new Vector3(-0.5f,0.5f,0.5f),
+                new Vector3(0.5f,0.5f,0.5f),
+                new Vector3(0.5f,-0.5f,0.5f),
+                new Vector3(-0.5f,-0.5f,0.5f),
+                new Vector3(-0.5f,0.5f,-0.5f),
+                new Vector3(0.5f,0.5f,-0.5f),
+                new Vector3(0.5f,-0.5f,-0.5f),
+                new Vector3(-0.5f,-0.5f,-0.5f),
+            });
+
+            Assert.That(cube.BottomSurfaceArea(), Is.EqualTo(1f));
+        }
         
     }
    
