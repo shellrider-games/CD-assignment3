@@ -71,10 +71,11 @@ internal class Program
 
     public static void PrintSurfaceAreasAsync(List<ISurface> list)
     {
+        object conch = new object();
         List<Task> tasks = new List<Task>();
 
         List<ISurface> copy = new List<ISurface>(list);
-        Dictionary<ISurface, float> areas = new Dictionary<ISurface, float>();
+        float[] areas = new float[list.Count];
         List<ISurface> clusterdTetras = new List<ISurface>();
 
         while (copy.Count > 0)
@@ -102,16 +103,18 @@ internal class Program
                 copy.Remove(element);
             }
         }
-
-        foreach (ISurface element in clusterdTetras)
+        
+        for (int i = 0; i < clusterdTetras.Count; i++)
         {
-            tasks.Add(Task.Run(() => areas[element] = element.SurfaceArea()));
+            int index = i; // we need to copy the index so that it is available in the Thread even when it was overwritten
+            tasks.Add(Task.Run(() => areas[index] = clusterdTetras[index].SurfaceArea()));
         }
 
         Task.WaitAll(tasks.ToArray());
-        foreach (ISurface element in clusterdTetras)
+
+        for (int i = 0; i < clusterdTetras.Count; i++)
         {
-            WriteSurfaceAreaOf(element, areas[element]);
+            WriteSurfaceAreaOf(clusterdTetras[i], areas[i]);
         }
 
     }
