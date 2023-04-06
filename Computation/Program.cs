@@ -159,26 +159,10 @@ internal class Program
     private static Tetrahedron RandomTetrahedronGenerator()
     {
         Vector3[] points = new Vector3[]{
-                new Vector3(
-                    RandomFloatBetween(-10,10),
-                    RandomFloatBetween(-10,10),
-                    RandomFloatBetween(-10,10)
-                ),
-                new Vector3(
-                    RandomFloatBetween(-10,10),
-                    RandomFloatBetween(-10,10),
-                    RandomFloatBetween(-10,10)
-                ),
-                new Vector3(
-                    RandomFloatBetween(-10,10),
-                    RandomFloatBetween(-10,10),
-                    RandomFloatBetween(-10,10)
-                ),
-                new Vector3(
-                    RandomFloatBetween(-10,10),
-                    RandomFloatBetween(-10,10),
-                    RandomFloatBetween(-10,10)
-                )
+                RandomVector3(),
+                RandomVector3(),
+                RandomVector3(),
+                RandomVector3()
             };
         return new Tetrahedron(points);
     }
@@ -190,11 +174,7 @@ internal class Program
         float width = RandomFloatBetween(0.1f, 10f);
         float sheer = RandomFloatBetween(-3f, 3f);
 
-        Vector3 a = new Vector3(
-            RandomFloatBetween(-10, 10),
-            RandomFloatBetween(-10, 10),
-            RandomFloatBetween(-10, 10)
-        );
+        Vector3 a = RandomVector3();
         Vector3 b = a + new Vector3(width, 0, sheer);
         Vector3 c = b + new Vector3(0, depth, 0);
         Vector3 d = a + new Vector3(0, depth, 0);
@@ -209,16 +189,17 @@ internal class Program
 
     private static Cylinder RandomCylinderGenerator()
     {
-        Vector3 top = new Vector3(
-            RandomFloatBetween(-10, 10),
-            RandomFloatBetween(-10, 10),
-            RandomFloatBetween(-10, 10)
-        );
-        Vector3 bottom = new Vector3(
-            RandomFloatBetween(-10, 10),
-            RandomFloatBetween(-10, 10),
-            RandomFloatBetween(-10, 10)
-        );
+        Vector3 top = RandomVector3();
+        Vector3 bottom = RandomVector3();
         return new Cylinder(bottom, top, RandomFloatBetween(0.5f, 4f));
+    }
+
+    private static Vector3 RandomVector3()
+    {
+        return new Vector3(
+            RandomFloatBetween(-10, 10),
+            RandomFloatBetween(-10, 10),
+            RandomFloatBetween(-10, 10)
+        );
     }
 }
