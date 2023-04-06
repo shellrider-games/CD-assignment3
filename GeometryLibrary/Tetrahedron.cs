@@ -7,6 +7,7 @@ public class Tetrahedron : Polyhedron, IVolume
 
     public override float SurfaceArea()
     {
+        Thread.Sleep(1000);
         float result = 0;
 
         (Vector3, Vector3) triangle1 = (_points[1] - _points[0], _points[2] - _points[0]);

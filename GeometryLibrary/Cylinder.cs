@@ -54,6 +54,7 @@ public class Cylinder : ISurface, IVolume
 
     public float SurfaceArea()
     {
+        Thread.Sleep(1000);
         return 2 * MathF.PI * _radius * (_radius + Height());
     }
 

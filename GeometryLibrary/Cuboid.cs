@@ -14,6 +14,7 @@ public class Cuboid : Polyhedron, IVolume
 
     public override float SurfaceArea()
     {
+        Thread.Sleep(1000);
         float result = 0;
         (Vector3, Vector3)[] triangles = Triangles();
         foreach((Vector3, Vector3) triangle in triangles)
