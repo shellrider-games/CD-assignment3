@@ -1,35 +1,133 @@
 ﻿using GeometryLibrary;
+using System.Diagnostics;
 internal class Program
 {
+    public delegate T SurfaceGenerator<T>() where T : ISurface;
     private static void Main(string[] args)
     {
-        Tetrahedron[] tetrahedra = RandomTetrahedra(5);
-        foreach(Tetrahedron tetra in tetrahedra)
+        Random random = new Random();
+        List<ISurface> geometricObjects = new List<ISurface>();
+
+        Tetrahedron[] tetrahedra = GenerateSurfaces<Tetrahedron>(5, RandomTetrahedronGenerator);
+        Cuboid[] cuboids = GenerateSurfaces<Cuboid>(5, RandomCuboidGenerator);
+        Cylinder[] cylinders = GenerateSurfaces<Cylinder>(5, RandomCylinderGenerator);
+        geometricObjects.AddRange(tetrahedra);
+        geometricObjects.AddRange(cuboids);
+        geometricObjects.AddRange(cylinders);
+
+        geometricObjects = geometricObjects.OrderBy(_ => random.Next()).ToList();
+        
+        Stopwatch stopwatch = Stopwatch.StartNew();
+        PrintSurfaceAreas(geometricObjects);
+        stopwatch.Stop();
+        Console.WriteLine($"Calculating surfaces synchronously took {stopwatch.ElapsedMilliseconds}ms");
+        stopwatch = Stopwatch.StartNew();
+        PrintSurfaceAreasAsync(geometricObjects);
+        stopwatch.Stop();
+        Console.WriteLine($"Calculating surfaces asynchronously took {stopwatch.ElapsedMilliseconds}ms");
+    }
+
+    private static void PrintSurfaceAreas(List<ISurface> list)
+    {
+        List<ISurface> copy = new List<ISurface>(list);
+        while(copy.Count > 0)
         {
-            tetra.PrintToConsole();
+            ISurface element = copy.First();
+            if(element is Tetrahedron) 
+            {
+                List<Tetrahedron> tetrahedrons = new List<Tetrahedron>();
+                foreach(ISurface obj in copy)
+                {
+                    if(obj is Tetrahedron)
+                    {
+                        tetrahedrons.Add((Tetrahedron)obj);
+                    }
+                }
+                foreach(Tetrahedron tetrahedron in tetrahedrons)
+                {
+                    WriteSurfaceAreaOf(tetrahedron);
+                    copy.Remove(tetrahedron);
+                }
+            } else {
+                WriteSurfaceAreaOf(element);
+                copy.Remove(element);
+            }
         }
-        Cuboid[] cuboids = RandomCuboids(5);
-        foreach(Cuboid cuboid in cuboids)
+    }
+    
+    public static void PrintSurfaceAreasAsync(List<ISurface> list)
+    {
+        List<Task> tasks = new List<Task>();
+        List<ISurface> copy = new List<ISurface>(list);
+        while(copy.Count > 0)
         {
-            cuboid.PrintToConsole();
+            ISurface element = copy.First();
+            if(element is Tetrahedron) 
+            {
+                List<Tetrahedron> tetrahedrons = new List<Tetrahedron>();
+                foreach(ISurface obj in copy)
+                {
+                    if(obj is Tetrahedron)
+                    {
+                        tetrahedrons.Add((Tetrahedron)obj);
+                    }
+                }
+                foreach(Tetrahedron tetrahedron in tetrahedrons)
+                {
+                    tasks.Add(Task.Run(() => WriteSurfaceAreaOf(tetrahedron)));
+                    copy.Remove(tetrahedron);
+                }
+            } else {
+                tasks.Add(Task.Run(() => WriteSurfaceAreaOf(element)));
+                copy.Remove(element);
+            }
         }
+
+        Task.WaitAll(tasks.ToArray());
+        
+    }
+
+    private static void WriteSurfaceAreaOf(ISurface obj)
+    {
+            float area = obj.SurfaceArea();
+            switch(obj)
+            {
+                case Cuboid:
+                    Console.WriteLine($"Cuboid: {area}");
+                    break;
+                case Tetrahedron:
+                    Console.WriteLine($"Tetrahedron: {area}");
+                    break;
+                case Cylinder:
+                    Console.WriteLine($"Cylinder: {area}");
+                    break;
+                default:
+                    Console.WriteLine($"Unclear: {area}");
+                    break;
+            }
     }
 
     private static float RandomFloatBetween(float min, float max)
     {
         float randomNumber = new Random().NextSingle();
-        randomNumber *= max-min;
+        randomNumber *= max - min;
         randomNumber += min;
         return randomNumber;
     }
 
-    private static Tetrahedron[] RandomTetrahedra(uint amount)
+    private static T[] GenerateSurfaces<T>(uint amount, SurfaceGenerator<T> generator) where T : ISurface
     {
-        Random random = new Random();
-        Tetrahedron[] result = new Tetrahedron[amount];
-        for(int i = 0; i < amount; i++)
+        T[] result = new T[amount];
+        for (int i = 0; i < amount; i++)
         {
-            Vector3[] points = new Vector3[]{
+            result[i] = generator();
+        }
+        return result;
+    }
+
+    private static Tetrahedron RandomTetrahedronGenerator()
+    {
+        Vector3[] points = new Vector3[]{
                 new Vector3(
                     RandomFloatBetween(-10,10),
                     RandomFloatBetween(-10,10),
@@ -51,41 +149,45 @@ internal class Program
                     RandomFloatBetween(-10,10)
                 )
             };
-            result[i] = new Tetrahedron(points);
-        }
-        return result;
+        return new Tetrahedron(points);
     }
 
-    private static Cuboid[] RandomCuboids(uint amount)
+    private static Cuboid RandomCuboidGenerator()
     {
-        Random random = new Random();
-        Cuboid[] result = new Cuboid[amount];
-        for(int i = 0; i < amount; i++)
-        {
-            float depth = RandomFloatBetween(0.1f, 10f);
-            float height = RandomFloatBetween(0.1f, 10f);
-            float width = RandomFloatBetween(0.1f, 10f);
-            float sheer = RandomFloatBetween(-3f, 3f);
+        float depth = RandomFloatBetween(0.1f, 10f);
+        float height = RandomFloatBetween(0.1f, 10f);
+        float width = RandomFloatBetween(0.1f, 10f);
+        float sheer = RandomFloatBetween(-3f, 3f);
 
-            Vector3 a = new Vector3(
-                RandomFloatBetween(-10, 10),
-                RandomFloatBetween(-10, 10),
-                RandomFloatBetween(-10, 10)
-            );
+        Vector3 a = new Vector3(
+            RandomFloatBetween(-10, 10),
+            RandomFloatBetween(-10, 10),
+            RandomFloatBetween(-10, 10)
+        );
+        Vector3 b = a + new Vector3(width, 0, sheer);
+        Vector3 c = b + new Vector3(0, depth, 0);
+        Vector3 d = a + new Vector3(0, depth, 0);
 
-            Vector3 b = a + new Vector3(width,0, sheer);
-            Vector3 c = b + new Vector3(0, depth, 0);
-            Vector3 d = a + new Vector3(0, depth, 0);
+        Vector3 e = a - new Vector3(0, 0, height);
+        Vector3 f = b - new Vector3(0, 0, height);
+        Vector3 g = c - new Vector3(0, 0, height);
+        Vector3 h = d - new Vector3(0, 0, height);
 
-            Vector3 e = a - new Vector3(0,0,height);
-            Vector3 f = b - new Vector3(0,0,height);
+        return new Cuboid(a, b, c, d, e, f, g, h);
+    }
 
-            Vector3 g = c -new Vector3(0,0,height);
-            Vector3 h = d -new Vector3(0,0,height);
-
-            result[i] = new Cuboid(a,b,c,d,e,f,g,h);
-
-        }
-        return result;
+    private static Cylinder RandomCylinderGenerator()
+    {
+        Vector3 top = new Vector3(
+            RandomFloatBetween(-10, 10),
+            RandomFloatBetween(-10, 10),
+            RandomFloatBetween(-10, 10)
+        );
+        Vector3 bottom = new Vector3(
+            RandomFloatBetween(-10, 10),
+            RandomFloatBetween(-10, 10),
+            RandomFloatBetween(-10, 10)
+        );
+        return new Cylinder(bottom, top, RandomFloatBetween(0.5f, 4f));
     }
 }
