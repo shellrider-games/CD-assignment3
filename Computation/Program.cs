@@ -16,11 +16,14 @@ internal class Program
         geometricObjects.AddRange(cylinders);
 
         geometricObjects = geometricObjects.OrderBy(_ => random.Next()).ToList();
-        
+
+        Console.WriteLine("Start calculating surfaces synchronously...");
         Stopwatch stopwatch = Stopwatch.StartNew();
         PrintSurfaceAreas(geometricObjects);
         stopwatch.Stop();
         Console.WriteLine($"Calculating surfaces synchronously took {stopwatch.ElapsedMilliseconds}ms");
+
+        Console.WriteLine("Start calculating surfaces asynchronously...");
         stopwatch = Stopwatch.StartNew();
         PrintSurfaceAreasAsync(geometricObjects);
         stopwatch.Stop();
@@ -30,81 +33,106 @@ internal class Program
     private static void PrintSurfaceAreas(List<ISurface> list)
     {
         List<ISurface> copy = new List<ISurface>(list);
-        while(copy.Count > 0)
+        Dictionary<ISurface, float> areas = new Dictionary<ISurface, float>();
+        List<ISurface> clusterdTetras = new List<ISurface>();
+        while (copy.Count > 0)
         {
             ISurface element = copy.First();
-            if(element is Tetrahedron) 
+            if (element is Tetrahedron)
             {
                 List<Tetrahedron> tetrahedrons = new List<Tetrahedron>();
-                foreach(ISurface obj in copy)
+                foreach (ISurface obj in copy)
                 {
-                    if(obj is Tetrahedron)
+                    if (obj is Tetrahedron)
                     {
                         tetrahedrons.Add((Tetrahedron)obj);
                     }
                 }
-                foreach(Tetrahedron tetrahedron in tetrahedrons)
+                foreach (Tetrahedron tetrahedron in tetrahedrons)
                 {
-                    WriteSurfaceAreaOf(tetrahedron);
+                    areas.Add(tetrahedron, tetrahedron.SurfaceArea());
+                    clusterdTetras.Add(tetrahedron);
                     copy.Remove(tetrahedron);
                 }
-            } else {
-                WriteSurfaceAreaOf(element);
+            }
+            else
+            {
+                areas.Add(element, element.SurfaceArea());
+                clusterdTetras.Add(element);
                 copy.Remove(element);
             }
         }
+
+        foreach (ISurface element in clusterdTetras)
+        {
+            WriteSurfaceAreaOf(element, areas[element]);
+        }
     }
-    
+
     public static void PrintSurfaceAreasAsync(List<ISurface> list)
     {
         List<Task> tasks = new List<Task>();
+
         List<ISurface> copy = new List<ISurface>(list);
-        while(copy.Count > 0)
+        Dictionary<ISurface, float> areas = new Dictionary<ISurface, float>();
+        List<ISurface> clusterdTetras = new List<ISurface>();
+
+        while (copy.Count > 0)
         {
             ISurface element = copy.First();
-            if(element is Tetrahedron) 
+            if (element is Tetrahedron)
             {
                 List<Tetrahedron> tetrahedrons = new List<Tetrahedron>();
-                foreach(ISurface obj in copy)
+                foreach (ISurface obj in copy)
                 {
-                    if(obj is Tetrahedron)
+                    if (obj is Tetrahedron)
                     {
                         tetrahedrons.Add((Tetrahedron)obj);
                     }
                 }
-                foreach(Tetrahedron tetrahedron in tetrahedrons)
+                foreach (Tetrahedron tetrahedron in tetrahedrons)
                 {
-                    tasks.Add(Task.Run(() => WriteSurfaceAreaOf(tetrahedron)));
+                    clusterdTetras.Add(tetrahedron);
                     copy.Remove(tetrahedron);
                 }
-            } else {
-                tasks.Add(Task.Run(() => WriteSurfaceAreaOf(element)));
+            }
+            else
+            {
+                clusterdTetras.Add(element);
                 copy.Remove(element);
             }
         }
 
+        foreach (ISurface element in clusterdTetras)
+        {
+            tasks.Add(Task.Run(() => areas[element] = element.SurfaceArea()));
+        }
+
         Task.WaitAll(tasks.ToArray());
-        
+        foreach (ISurface element in clusterdTetras)
+        {
+            WriteSurfaceAreaOf(element, areas[element]);
+        }
+
     }
 
-    private static void WriteSurfaceAreaOf(ISurface obj)
+    private static void WriteSurfaceAreaOf(ISurface obj, float area)
     {
-            float area = obj.SurfaceArea();
-            switch(obj)
-            {
-                case Cuboid:
-                    Console.WriteLine($"Cuboid: {area}");
-                    break;
-                case Tetrahedron:
-                    Console.WriteLine($"Tetrahedron: {area}");
-                    break;
-                case Cylinder:
-                    Console.WriteLine($"Cylinder: {area}");
-                    break;
-                default:
-                    Console.WriteLine($"Unclear: {area}");
-                    break;
-            }
+        switch (obj)
+        {
+            case Cuboid:
+                Console.WriteLine($"Cuboid: {area}");
+                break;
+            case Tetrahedron:
+                Console.WriteLine($"Tetrahedron: {area}");
+                break;
+            case Cylinder:
+                Console.WriteLine($"Cylinder: {area}");
+                break;
+            default:
+                Console.WriteLine($"Unclear: {area}");
+                break;
+        }
     }
 
     private static float RandomFloatBetween(float min, float max)
