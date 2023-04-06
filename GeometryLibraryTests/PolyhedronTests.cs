@@ -60,5 +60,6 @@ namespace GeometryLibraryTests
             Assert.IsTrue(test1 == test2);
             Assert.IsFalse(test1 == test3);
         }
+
     }
 }

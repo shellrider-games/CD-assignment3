@@ -44,7 +44,20 @@ namespace GeometryLibraryTests
                 new Vector3(0.5f,-0.5f,-0.5f),
                 new Vector3(-0.5f,-0.5f,-0.5f),
             });
-            Assert.That(cube.Centroid, Is.EqualTo(new Vector3(0,0,0)));
+
+            Cuboid cuboid = new Cuboid(new Vector3[]{
+                new Vector3(-0.34329f,-0.870595f,0.866248f),
+                new Vector3(1.46298f,-0.870595f,0.866248f),
+                new Vector3(1.01123f,0.858149f,-0.030544f),
+                new Vector3(-0.795039f,0.858149f,-0.030544f),
+                new Vector3(-1.24306f,-0.870595f,-0.919927f),
+                new Vector3(0.563215f,-0.870595f,-0.919927f),
+                new Vector3(0.563215f,0.858149f,-0.919927f),
+                new Vector3(-1.24306f,0.858149f,-0.919927f),
+            });
+
+            Assert.That(cube.Centroid(), Is.EqualTo(new Vector3(0,0,0)));
+            Assert.That(cuboid.Centroid(), Is.EqualTo(new Vector3(-0.0029761195f,-0.006222993f,-0.2510375f))); 
         }
 
         [Test]
