@@ -8,12 +8,9 @@ internal class Program
         Random random = new Random();
         List<ISurface> geometricObjects = new List<ISurface>();
 
-        Tetrahedron[] tetrahedra = GenerateSurfaces<Tetrahedron>(5, RandomTetrahedronGenerator);
-        Cuboid[] cuboids = GenerateSurfaces<Cuboid>(5, RandomCuboidGenerator);
-        Cylinder[] cylinders = GenerateSurfaces<Cylinder>(5, RandomCylinderGenerator);
-        geometricObjects.AddRange(tetrahedra);
-        geometricObjects.AddRange(cuboids);
-        geometricObjects.AddRange(cylinders);
+        geometricObjects.AddRange(GenerateSurfaces<Tetrahedron>(5, RandomTetrahedronGenerator));
+        geometricObjects.AddRange(GenerateSurfaces<Cuboid>(5, RandomCuboidGenerator));
+        geometricObjects.AddRange(GenerateSurfaces<Cylinder>(5, RandomCylinderGenerator));
 
         geometricObjects = geometricObjects.OrderBy(_ => random.Next()).ToList();
 
