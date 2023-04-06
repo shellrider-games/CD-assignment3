@@ -54,5 +54,14 @@ public abstract class Polyhedron : ISurface
         }
         return centroid / (float)_points.Length;
     }
+
+    public void PrintToConsole()
+    {
+        Console.WriteLine($"object has {_points.Length} points:");
+        for(int i = 0; i < _points.Length; i++)
+        {
+            Console.WriteLine($"    Point {i}: ({_points[i].X}, {_points[i].Y}, {_points[i].Z})");
+        }
+    }
     public abstract float SurfaceArea();
 }
