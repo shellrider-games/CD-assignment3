@@ -23,4 +23,12 @@ I implemented a Tetrahedron as 4 points in space represented using my `Vector3` 
 I implemented a Cuboid as 8 points in space represented using my `Vector3` struct. The order of the given points is important and it is interpreted to be in order (a-h). I initially tried to implement some checks for correctness but opted against it since it is beyond the timeframe I have to implement this right now. To solve for surface I use the fact that a cuboid consists of triangles. The volume I solve by splitting the cuboid into 5 tetrahedra and using the already implemented volume calculation of the Tetrahedron class.
 
 ## Cylinder 
-Compared to the other 2 classes the Cylinder class is quite simple. It implements both `ISurface` and `IVolume` and uses simple vector calculations and circle formulas to solve both surface and volume. The height in my case is the distance between the 2 points describing the positions of the cylinders bases. This implementation does not allow to rotate the cylinder in space. The normal of the bases is always treated as pointing in the same directions as (0, 0, 1);
+Compared to the other 2 classes the Cylinder class is quite simple. It implements both `ISurface` and `IVolume` and uses simple vector calculations and circle formulas to solve both surface and volume. The height in my case is the distance between the 2 points describing the positions of the cylinders bases. This implementation does not allow to rotate the cylinder in space. The normal of the bases is always treated as pointing in the same directions as (0, 0, 1).
+
+## UML
+![UML describing class library](./GeometryLibrary_Class_Diagram.png)
+
+# Computation
+The computation part of the assignment uses the GeometryLibrary
+
+My implementation creates 5 Tetrahedra, 5 Cuboids and 5 Cylinders to a `List<ISurface>` shuffles the list and then calculates and prints all objects' surface areas. When it detects that an object is a Tetrahedra it sorts all of them in order.
