@@ -32,3 +32,9 @@ Compared to the other 2 classes the Cylinder class is quite simple. It implement
 The computation part of the assignment uses the GeometryLibrary
 
 My implementation creates 5 Tetrahedra, 5 Cuboids and 5 Cylinders to a `List<ISurface>` shuffles the list and then calculates and prints all objects' surface areas. When it detects that an object is a Tetrahedra it sorts all of them in order.
+
+The async and sync implementation both then calculate all surface areas using the respective strategy and print them onto the console once all values are calculated and sorted.
+
+## Performance diagnostics
+
+In the main function I use the Stopwatch class to track and print out the length of both the synchronous and asynchronous approach.
