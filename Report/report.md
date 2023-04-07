@@ -38,3 +38,46 @@ The async and sync implementation both then calculate all surface areas using th
 ## Performance diagnostics
 
 In the main function I use the Stopwatch class to track and print out the length of both the synchronous and asynchronous approach.
+
+## Example run
+
+Running the program on my system once yields the following output:
+
+```
+Start calculating surfaces synchronously...
+Tetrahedron: 294,01984
+Tetrahedron: 113,45056
+Tetrahedron: 125,4559
+Tetrahedron: 205,78864
+Tetrahedron: 472,72394
+Cylinder: 219,15826
+Cylinder: 203,04272
+Cylinder: 423,7771
+Cuboid: 200,41727
+Cylinder: 178,28064
+Cuboid: 165,39322
+Cuboid: 387,70703
+Cylinder: 189,81992
+Cuboid: 122,06198
+Cuboid: 56,836067
+Calculating surfaces synchronously took 15164ms
+Start calculating surfaces asynchronously...
+Tetrahedron: 294,01984
+Tetrahedron: 113,45056
+Tetrahedron: 125,4559
+Tetrahedron: 205,78864
+Tetrahedron: 472,72394
+Cylinder: 219,15826
+Cylinder: 203,04272
+Cylinder: 423,7771
+Cuboid: 200,41727
+Cylinder: 178,28064
+Cuboid: 165,39322
+Cuboid: 387,70703
+Cylinder: 189,81992
+Cuboid: 122,06198
+Cuboid: 56,836067
+Calculating surfaces asynchronously took 2023ms
+```
+
+This shows a significant performance improvement using the async solution.
