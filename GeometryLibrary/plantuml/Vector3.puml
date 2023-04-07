@@ -1,0 +1,12 @@
+@startuml
+class Vector3 <<struct>> {
+    + Vector3(x:float, y:float, z:float)
+    + X : float <<get>>
+    + Y : float <<get>>
+    + Z : float <<get>>
+    + Magnitude : float <<get>>
+    + {static} Cross(vector1:Vector3, vector2:Vector3) : Vector3
+    + {static} Normalize(vector:Vector3) : Vector3
+    + {static} Dot(vector1:Vector3, vector2:Vector3) : float
+}
+@enduml

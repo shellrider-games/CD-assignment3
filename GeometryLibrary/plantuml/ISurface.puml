@@ -1,0 +1,5 @@
+@startuml
+interface ISurface {
+    + SurfaceArea() : float
+}
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+class Program {
+    + {static} PrintSurfaceAreasAsync(list:List<ISurface>) : void
+}
+@enduml

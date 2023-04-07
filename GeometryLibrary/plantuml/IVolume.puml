@@ -1,0 +1,5 @@
+@startuml
+interface IVolume {
+    + Volume() : float
+}
+@enduml

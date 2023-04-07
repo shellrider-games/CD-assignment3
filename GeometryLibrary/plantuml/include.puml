@@ -1,0 +1,9 @@
+@startuml
+!include .\\Cuboid.puml
+!include .\\Cylinder.puml
+!include .\\ISurface.puml
+!include .\\IVolume.puml
+!include .\\Polyhedron.puml
+!include .\\Tetrahedron.puml
+!include .\\Vector3.puml
+@enduml

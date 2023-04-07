@@ -1,0 +1,10 @@
+@startuml
+class Cuboid {
+    + Cuboid(points:Vector3[])
+    + Cuboid(a:Vector3, b:Vector3, c:Vector3, d:Vector3, e:Vector3, f:Vector3, g:Vector3, h:Vector3)
+    + <<override>> SurfaceArea() : float
+    + Volume() : float
+}
+Polyhedron <|-- Cuboid
+IVolume <|-- Cuboid
+@enduml

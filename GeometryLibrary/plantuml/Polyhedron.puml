@@ -1,0 +1,12 @@
+@startuml
+abstract class Polyhedron {
+    + Polyhedron(points:Vector3[])
+    + <<override>> Equals(obj:object?) : bool
+    + <<override>> GetHashCode() : int
+    + Centroid() : Vector3
+    + PrintToConsole() : void
+    + {abstract} SurfaceArea() : float
+}
+
+ISurface <|-- Polyhedron
+@enduml

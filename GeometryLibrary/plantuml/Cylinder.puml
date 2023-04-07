@@ -1,0 +1,13 @@
+@startuml
+class Cylinder {
+    + Cylinder(base1:Vector3, base2:Vector3, radius:float)
+    + <<override>> Equals(obj:object?) : bool
+    + <<override>> GetHashCode() : int
+    + Height() : float
+    + BottomArea() : float
+    + SurfaceArea() : float
+    + Volume() : float
+}
+ISurface <|-- Cylinder
+IVolume <|-- Cylinder
+@enduml

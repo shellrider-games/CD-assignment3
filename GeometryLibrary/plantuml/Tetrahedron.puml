@@ -1,0 +1,10 @@
+@startuml
+class Tetrahedron {
+    + Tetrahedron(points:Vector3[])
+    + Tetrahedron(a:Vector3, b:Vector3, c:Vector3, d:Vector3)
+    + <<override>> SurfaceArea() : float
+    + Volume() : float
+}
+Polyhedron <|-- Tetrahedron
+IVolume <|-- Tetrahedron
+@enduml
