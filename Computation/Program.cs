@@ -77,10 +77,9 @@ internal class Program
 
     public static void PrintSurfaceAreasAsync(List<ISurface> list)
     {
-        object conch = new object();
         List<Task> tasks = new List<Task>();
 
-        List<ISurface> copy = new List<ISurface>(list); //create copy we go throug to cluster Tetrahedrons
+        List<ISurface> copy = new List<ISurface>(list); //create copy we go through to cluster Tetrahedrons
         float[] areas = new float[list.Count]; //store areas in this array
         List<ISurface> clusterdTetras = new List<ISurface>(); //We store the right order here
 
