@@ -1,5 +1,6 @@
 namespace GeometryLibrary;
 
+//Implementation for Cylinder, surfaces always are normal on (0,0,1)
 public class Cylinder : ISurface, IVolume
 {
     private Vector3 _base1;
